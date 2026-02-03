@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;}
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff5f8f,#ff9a9e);
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
+
+/* floating hearts */
+.heart{
+    position:absolute;
+    font-size:22px;
+    animation:float 6s linear infinite;
+    opacity:0.8;
+}
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+
+/* container */
+.container{
+    background:#fff;
+    width:90%;
+    max-width:340px;
+    padding:25px;
+    text-align:center;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    animation:pop 0.8s ease;
+}
+@keyframes pop{
+    from{transform:scale(0.7);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+.sticker{
+    font-size:42px;
+    animation:bounce 1.5s infinite;
+}
+@keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+h1{color:#e6005c;font-size:22px;}
+
+.buttons{
+    margin-top:20px;
+    position:relative;
+    height:120px;
+}
+button{
+    padding:12px 28px;
+    font-size:16px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+#yesBtn{
+    background:#ff3366;
+    color:#fff;
+}
+#yesBtn:hover{transform:scale(1.1);}
+#noBtn{
+    background:#ddd;
+    position:absolute;
+    left:60%;
+    top:50%;
+    transform:translate(-50%,-50%);
+}
+
+/* confetti */
+.confetti{
+    position:fixed;
+    width:8px;
+    height:14px;
+    background:red;
+    top:-20px;
+    animation:fall linear forwards;
+}
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- hearts -->
+<div class="heart" style="left:10%">💖</div>
+<div class="heart" style="left:30%;animation-delay:1s">💕</div>
+<div class="heart" style="left:50%;animation-delay:2s">💘</div>
+<div class="heart" style="left:70%;animation-delay:3s">😍</div>
+<div class="heart" style="left:90%;animation-delay:4s">❤️</div>
+
+<div class="container" id="box">
+    <div class="sticker">🥰</div>
+    <h1>Will you be my Valentine? ❤️</h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💕</button>
+        <button id="noBtn">No 😜</button>
+    </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const box = document.getElementById("box");
+
+function moveBtn(){
+    noBtn.style.left = Math.random()*window.innerWidth + "px";
+    noBtn.style.top = Math.random()*window.innerHeight + "px";
+}
+noBtn.addEventListener("mouseover", moveBtn);
+noBtn.addEventListener("touchstart", moveBtn);
+
+// CONFETTI FUNCTION
+function confettiBlast(){
+    for(let i=0;i<120;i++){
+        const conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.left = Math.random()*100 + "vw";
+        conf.style.backgroundColor =
+            ["#ff3366","#ffcc00","#33ccff","#66ff99","#cc66ff"][Math.floor(Math.random()*5)];
+        conf.style.animationDuration = (2 + Math.random()*3) + "s";
+        document.body.appendChild(conf);
+
+        setTimeout(()=>conf.remove(),5000);
+    }
+}
+
+yesBtn.addEventListener("click", ()=>{
+    confettiBlast();
+    box.innerHTML = `
+        <div class="sticker">💖💍💖</div>
+        <h1>Congratulations 🎉</h1>
+        <p style="color:#e6005c;font-size:18px;">
+            Ab se aap meri <b>dharampatni</b> 💍<br><br>
+            ❤️ I love you ❤️
+        </p>
+    `;
+});
+</script>
+
+</body>
+</html>
